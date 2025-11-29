@@ -1,0 +1,4 @@
+- `cp constants.dist.py constants.py`
+- fill in with relevant info
+- `python santa.py --test` to only print information and exit
+- `python santa.py` for the real thing
