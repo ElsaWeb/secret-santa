@@ -2,13 +2,7 @@ import argparse
 import pickle
 import random
 import requests
-import ssl
 import sys
-
-from email import encoders
-# from emails.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 from constants import API_TOKEN, SUBJECT, SENDER_EMAIL, SENDER_NAME, PARTICIPANTS, CONSTRAINTS, MSG_TEXT, MSG_HTML, PREFERENCES
 
@@ -32,6 +26,7 @@ try:
         print(f'Recovered pairings successfully. Current index is {current_index}')
 
 except FileNotFoundError:
+
     # Draw the pairings and retry until constraints are satisfied
     participants_names = list(PARTICIPANTS.keys())
     pairings = {}
@@ -60,8 +55,6 @@ if args.test:
         print(f'{g}: {v}')
     sys.exit(0)
 
-sys.exit(0)
-
 current_index = 0
 
 url = "https://send.api.mailtrap.io/api/send"
@@ -79,7 +72,7 @@ for giver, gift_recipient in pairings.items():
     if not giver_email:
         raise ValueError("Empty email address!")
 
-    preferences = "Aucune indication" if giver not in PREFERENCES else PREFERENCES[giver]
+    preferences = "Aucune indication" if gift_recipient not in PREFERENCES else PREFERENCES[gift_recipient]
 
     payload = {
         "subject": SUBJECT,
